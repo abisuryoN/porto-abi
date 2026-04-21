@@ -20,7 +20,7 @@ const translations = {
       skills: 'Kemampuan',
       uni: 'Universitas Indraprasta PGRI',
       now: 'Sekarang',
-      study: 'Fakultas / Program Studi (Sesuaikan). IPK Saat ini:',
+      study: 'Teknik Informatika. IPK Saat ini:',
       highschool: 'SMAN 1 Tajurhalang',
       science: 'Jurusan Ilmu Pengetahuan Alam (IPA)',
       summary: 'Terus belajar dan mengembangkan diri terhadap teknologi terbaru, termasuk pembuatan API, arsitektur database, dan implementasi frontend modern.'
@@ -75,7 +75,7 @@ const translations = {
       skills: 'Skills',
       uni: 'Indraprasta PGRI University',
       now: 'Present',
-      study: 'Faculty / Study Program (Adjust). Current GPA:',
+      study: 'Informatics Engineering. Current GPA:',
       highschool: 'SMAN 1 Tajurhalang High School',
       science: 'Science Major (IPA)',
       summary: 'Continuously learning and developing towards the latest technologies, including API creation, database architecture, and modern frontend implementation.'
