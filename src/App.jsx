@@ -4,8 +4,11 @@ import About from './components/About';
 import ScrollEffectText from './components/ScrollEffectText';
 import Projects from './components/Projects';
 import { FaWhatsapp } from 'react-icons/fa';
+import { useLanguage } from './context/LanguageContext';
 
 function App() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50 font-sans selection:bg-blue-500/30 selection:text-blue-200 relative">
       <Navbar />
@@ -26,14 +29,14 @@ function App() {
         <FaWhatsapp size={28} />
         {/* Tooltip on hover */}
         <span className="absolute right-16 bg-slate-800 text-sm py-1 px-3 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-          Chat di WhatsApp
+          {t.common.chatWa}
         </span>
       </a>
       
       {/* Footer */}
       <footer className="py-8 text-center border-t border-slate-900 mt-20 relative z-10">
         <p className="text-slate-500 text-sm">
-          &copy; {new Date().getFullYear()} Abi Suryo Negoro. All rights reserved.
+          &copy; {new Date().getFullYear()} Abi Suryo Negoro. {t.common.rights}
         </p>
       </footer>
     </div>

@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const ScrollEffectText = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30 border-y border-slate-800/50 overflow-hidden flex justify-center items-center">
       <div className="max-w-4xl mx-auto text-center">
@@ -11,7 +14,7 @@ const ScrollEffectText = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className="text-sm sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 leading-relaxed py-2">
-            "Terus berkembang sebagai Backend Developer dengan membangun sistem yang efisien dan terstruktur serta mengikuti perkembangan teknologi modern."
+            {t.common.quote}
           </h2>
         </motion.div>
       </div>

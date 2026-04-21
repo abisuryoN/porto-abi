@@ -1,7 +1,10 @@
 import { X, ExternalLink } from 'lucide-react';
 import { useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
-const ProjectModal = ({ project, isOpen, onClose }) => {
+const ProjectModal = ({ project, isOpen, onClose, techIcons }) => {
+  const { t } = useLanguage();
+
   // Prevent scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -44,7 +47,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         <div className="p-6 overflow-y-auto flex-grow">
           <div className="mb-8">
             <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">
-              Deskripsi
+              {t.projects.descLabel}
             </h4>
             <p className="text-slate-300 leading-relaxed">
               {project.fullDesc}
@@ -53,17 +56,21 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 
           <div>
             <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">
-              Tech Stack
+              {t.projects.tech}
             </h4>
             <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
-                <span 
-                  key={tech} 
-                  className="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-sm font-medium"
-                >
-                  {tech}
-                </span>
-              ))}
+              {project.techStack.map((tech) => {
+                const TechIcon = techIcons?.[tech];
+                return (
+                  <span 
+                    key={tech} 
+                    className="px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 text-slate-300 rounded-xl text-sm font-medium flex items-center gap-2 group"
+                  >
+                    {TechIcon && <TechIcon.icon className={`${TechIcon.color} text-lg group-hover:scale-110 transition-transform`} />}
+                    {tech}
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -74,7 +81,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
             onClick={onClose}
             className="px-6 py-2.5 rounded-xl border border-slate-700 text-slate-300 font-medium hover:bg-slate-800 transition-colors w-full sm:w-auto"
           >
-            Tutup
+            {t.projects.close}
           </button>
           <a 
             href={project.demoUrl}
