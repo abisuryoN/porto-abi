@@ -25,6 +25,10 @@ const translations = {
       science: 'Jurusan Ilmu Pengetahuan Alam (IPA)',
       summary: 'Saya adalah mahasiswa Teknik Informatika yang berfokus pada Backend Development dan pengembangan aplikasi web menggunakan PHP, Laravel, React JS, dan MySQL.'
     },
+    teaching: {
+      title: 'Dokumentasi Kegiatan Mengajar',
+      desc: 'Pengalaman saya mengajar Teknik Informatika di SMA Negeri 1 Tajurhalang.'
+    },
     projects: {
       title: 'Portofolio Proyek',
       subtitle: 'Beberapa project backend dan aplikasi web yang pernah saya bangun.',
@@ -51,7 +55,7 @@ const translations = {
         {
           title: 'Company Profile Koperasi RAS',
           shortDesc: 'Website profil perusahaan untuk Koperasi Raya Abadi Saudara untuk meningkatkan visibilitas digital.',
-          fullDesc: 'Platform company profile yang dirancang untuk memperkenalkan profil Koperasi Raya Abadi Saudara kepada publik secara profesional. Situs ini mencakup informasi tentang layanan, visi misi, sejarah perusahaan, serta galeri kegiatan.'
+          fullDesc: 'Aplikasi company profile yang dirancang untuk memperkenalkan profil Koperasi Raya Abadi Saudara kepada publik secara profesional. Situs ini mencakup informasi tentang layanan, visi misi, sejarah perusahaan, serta galeri kegiatan.'
         },
         {
           title: 'DualCode - Layanan Jasa Joki',
@@ -89,6 +93,10 @@ const translations = {
       highschool: 'SMAN 1 Tajurhalang High School',
       science: 'Science Major (IPA)',
       summary: 'I am an Informatics Engineering student focused on Backend Development and web application development using PHP, Laravel, React JS, and MySQL.'
+    },
+    teaching: {
+      title: 'Teaching Documentation',
+      desc: 'My experience teaching Informatics at SMA Negeri 1 Tajurhalang.'
     },
     projects: {
       title: 'Project Portfolio',
