@@ -3,8 +3,7 @@ import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectModal from './ProjectModal';
 import { useLanguage } from '../context/LanguageContext';
-import { SiPhp, SiLaravel, SiCodeigniter, SiMysql, SiNodedotjs, SiExpress, SiMongodb, SiSocketdotio, SiBootstrap, SiDocker, SiRedis, SiGoogle } from 'react-icons/si';
-import { FaReact } from 'react-icons/fa';
+import { SiPhp, SiLaravel, SiCodeigniter, SiMysql, SiBootstrap, SiReact } from 'react-icons/si';
 
 const techIcons = {
   'PHP': { icon: SiPhp, color: 'text-[#777BB4]' },
@@ -12,14 +11,7 @@ const techIcons = {
   'CodeIgniter 4': { icon: SiCodeigniter, color: 'text-[#EE4323]' },
   'MySQL': { icon: SiMysql, color: 'text-[#4479A1]' },
   'Bootstrap': { icon: SiBootstrap, color: 'text-[#7952B3]' },
-  'Node.js': { icon: SiNodedotjs, color: 'text-[#339933]' },
-  'Express': { icon: SiExpress, color: 'text-white' },
-  'MongoDB': { icon: SiMongodb, color: 'text-[#47A248]' },
-  'Socket.io': { icon: SiSocketdotio, color: 'text-white' },
-  'React JS': { icon: FaReact, color: 'text-[#61DAFB]' },
-  'Docker': { icon: SiDocker, color: 'text-[#2496ED]' },
-  'Redis': { icon: SiRedis, color: 'text-[#DC382D]' },
-  'Google Login': { icon: SiGoogle, color: 'text-[#4285F4]' },
+  'React JS': { icon: SiReact, color: 'text-[#61DAFB]' },
 };
 
 const Projects = () => {
@@ -32,98 +24,62 @@ const Projects = () => {
     return t.projects.items.map((item, index) => ({
       ...item,
       id: index + 1,
-      techStack: [
-        ['PHP', 'Laravel', 'MySQL'],
-        ['React JS', 'Vite', 'JavaScript'],
-        ['PHP', 'CodeIgniter 4', 'MySQL'],
-        ['PHP', 'CodeIgniter 4', 'Bootstrap'],
-        ['React JS', 'Laravel']
-      ][index] || [],
-      demoUrl: [
-        'https://absensitaat.insomnia247.nl/',
-        'https://followcheck.insomnia247.nl/',
-        'https://rayaabadisaudara.com',
-        'https://koperasi-ras.netlify.app/',
-        'https://dualcode.vercel.app/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAaeboCQqHvkAX21fK5Cjvj9WJPdXhAIyKVMCkrk2VbizlkGOaQwrJCXg4EL60w_aem_HYEYiIUAwo-6mBRwcQ_wKA'
-      ][index]
+      techStack: [['PHP', 'Laravel', 'MySQL'],['React JS', 'Vite', 'JavaScript'],['PHP', 'CodeIgniter 4', 'MySQL'],['PHP', 'CodeIgniter 4', 'Bootstrap'],['React JS', 'Laravel']][index] || [],
+      demoUrl: ['https://absensitaat.insomnia247.nl/','https://followcheck.insomnia247.nl/','https://rayaabadisaudara.com','https://koperasi-ras.netlify.app/','https://dualcode.vercel.app/'][index]
     }));
   }, [t]);
 
-  const totalProjects = localizedProjects.length;
-
   const paginate = (newDirection) => {
     setDirection(newDirection);
-    setCurrentIndex((prev) => (prev + newDirection + totalProjects) % totalProjects);
+    setCurrentIndex((prev) => (prev + newDirection + localizedProjects.length) % localizedProjects.length);
   };
 
   return (
-    <section id="projects" className="py-20 px-4">
-      <div className="max-w-md mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">{t.projects.title}</h2>
-          <p className="text-slate-400">{t.projects.subtitle}</p>
-        </div>
-
-        <div className="relative group">
-          <button onClick={() => paginate(-1)} className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-slate-800/80 text-white shadow-lg hover:bg-slate-700">
-            <ChevronLeft size={20} />
+    <section id="projects" className="py-8 px-4">
+      <div className="max-w-md mx-auto relative">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.projects.title}</h2>
+        <div className="relative flex items-center justify-center">
+          <button onClick={() => paginate(-1)} className="absolute left-0 z-30 p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700">
+            <ChevronLeft size={24} />
           </button>
-          <button onClick={() => paginate(1)} className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-slate-800/80 text-white shadow-lg hover:bg-slate-700">
-            <ChevronRight size={20} />
-          </button>
-
-          <div className="relative h-[400px] overflow-hidden">
+          
+          <div className="w-full h-[450px] overflow-hidden relative">
             <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                     key={currentIndex}
                     custom={direction}
                     variants={{
-                        enter: (direction) => ({ x: direction > 0 ? 300 : -300, opacity: 0 }),
-                        center: { zIndex: 1, x: 0, opacity: 1 },
-                        exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 300 : -300, opacity: 0 })
+                        enter: (direction) => ({ x: direction > 0 ? "100%" : "-100%", opacity: 0 }),
+                        center: { x: 0, opacity: 1 },
+                        exit: (direction) => ({ x: direction < 0 ? "100%" : "-100%", opacity: 0 })
                     }}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                    initial="enter" animate="center" exit="exit"
+                    transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
                     className="absolute w-full"
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    onDragEnd={(e, { offset }) => {
-                        if (offset.x > 50) paginate(-1);
-                        else if (offset.x < -50) paginate(1);
-                    }}
                 >
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col h-full cursor-pointer hover:border-blue-500/50" onClick={() => setSelectedProject(localizedProjects[currentIndex])}>
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="text-xs font-mono text-blue-400">{String(currentIndex + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}</span>
-                        <a href={localizedProjects[currentIndex].demoUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-blue-400 p-1" onClick={(e) => e.stopPropagation()}>
-                            <ExternalLink size={18} />
-                        </a>
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col h-[400px]" onClick={() => setSelectedProject(localizedProjects[currentIndex])}>
+                      <div className="flex justify-between items-start mb-6">
+                        <span className="text-xs font-mono text-blue-400">{String(currentIndex + 1).padStart(2, '0')} / {String(localizedProjects.length).padStart(2, '0')}</span>
+                        <a href={localizedProjects[currentIndex].demoUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-blue-400" onClick={(e) => e.stopPropagation()}><ExternalLink size={20} /></a>
                       </div>
-                      <h3 className="text-xl font-semibold text-white mb-2">{localizedProjects[currentIndex].title}</h3>
-                      <p className="text-slate-400 text-sm mb-6 flex-grow">{localizedProjects[currentIndex].shortDesc}</p>
-                      <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
-                        {localizedProjects[currentIndex].techStack.map((tech) => {
-                          const TechIcon = techIcons[tech];
-                          return (
-                            <span key={tech} className="text-[10px] px-2 py-1 bg-slate-800 text-slate-300 rounded-md flex items-center gap-1.5 border border-slate-700/50">
-                              {TechIcon && <TechIcon.icon className={TechIcon.color} />}
-                              {tech}
-                            </span>
-                          );
-                        })}
+                      <h3 className="text-xl font-semibold text-white mb-4">{localizedProjects[currentIndex].title}</h3>
+                      <p className="text-slate-400 text-sm mb-auto line-clamp-4">{localizedProjects[currentIndex].shortDesc}</p>
+                      <div className="flex flex-wrap gap-2 pt-6 border-t border-slate-800">
+                        {localizedProjects[currentIndex].techStack.map(tech => (
+                          <span key={tech} className="text-[10px] px-2 py-1 bg-slate-800 text-slate-300 rounded-md border border-slate-700/50">{tech}</span>
+                        ))}
                       </div>
                     </div>
                 </motion.div>
             </AnimatePresence>
           </div>
+
+          <button onClick={() => paginate(1)} className="absolute right-0 z-30 p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700">
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
-
-      {selectedProject && (
-        <ProjectModal project={selectedProject} isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} techIcons={techIcons} />
-      )}
+      {selectedProject && <ProjectModal project={selectedProject} isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} techIcons={techIcons} />}
     </section>
   );
 };
