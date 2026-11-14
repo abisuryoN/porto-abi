@@ -1,9 +1,10 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ProjectModal from './ProjectModal';
 import { useLanguage } from '../context/LanguageContext';
 import { SiPhp, SiLaravel, SiCodeigniter, SiMysql, SiBootstrap, SiReact } from 'react-icons/si';
+import { projectsData } from '../data/projectsData';
 
 const techIcons = {
   'PHP': { icon: SiPhp, color: 'text-[#777BB4]' },
@@ -17,9 +18,16 @@ const techIcons = {
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const { t } = useLanguage();
-  const items = useMemo(() => t.projects.items, [t]);
-  const total = items.length;
   
+  // Combine localization items with fixed data
+  const items = useMemo(() => {
+    return t.projects.items.map((item, index) => ({
+      ...item,
+      ...projectsData[index]
+    }));
+  }, [t]);
+  
+  const total = items.length;
   const [index, setIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const transitionRef = useRef(false);
@@ -64,16 +72,22 @@ const Projects = () => {
             >
               {slides.map((project, i) => (
                 <div key={i} className="basis-full shrink-0 grow-0 min-w-0 px-4">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col gap-3 h-[320px] cursor-pointer hover:border-blue-500/50" onClick={() => setSelectedProject(project)}>
-                      <div className="flex justify-between items-center">
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-full cursor-pointer hover:border-blue-500/50" onClick={() => setSelectedProject(project)}>
+                      <div className="flex justify-between items-center mb-2">
                         <span className="text-xs font-mono text-blue-400">{String(currentDisplayIndex).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
-                        <a href={['https://absensitaat.insomnia247.nl/','https://followcheck.insomnia247.nl/','https://rayaabadisaudara.com','https://koperasi-ras.netlify.app/','https://dualcode.vercel.app/'][i === 0 ? total-1 : i === total+1 ? 0 : i-1]} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-blue-400" onClick={(e) => e.stopPropagation()}><ExternalLink size={18} /></a>
+                        <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 p-2 -mr-2 z-30" onClick={(e) => e.stopPropagation()}>
+                            <ExternalLink size={20} />
+                        </a>
                       </div>
-                      <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                      <p className="text-slate-400 text-sm line-clamp-4">{project.shortDesc}</p>
-                      <div className="mt-auto pt-4 border-t border-slate-800">
+                      
+                      <div className="flex flex-col gap-2">
+                          <h3 className="text-lg font-semibold text-white line-clamp-2">{project.title}</h3>
+                          <p className="text-slate-400 text-sm line-clamp-3">{project.shortDesc}</p>
+                      </div>
+                      
+                      <div className="mt-3 pt-3 border-t border-slate-800">
                         <div className="flex flex-wrap gap-2">
-                            {[['PHP', 'Laravel', 'MySQL'],['React JS', 'Vite', 'JavaScript'],['PHP', 'CodeIgniter 4', 'MySQL'],['PHP', 'CodeIgniter 4', 'Bootstrap'],['React JS', 'Laravel']][i === 0 ? total-1 : i === total+1 ? 0 : i-1].map(tech => (
+                            {project.techStack.map(tech => (
                               <span key={tech} className="text-[10px] px-2 py-1 bg-slate-800 text-slate-300 rounded-md border border-slate-700/50">{tech}</span>
                             ))}
                         </div>

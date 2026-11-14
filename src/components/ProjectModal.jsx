@@ -21,7 +21,7 @@ const ProjectModal = ({ project, isOpen, onClose, techIcons }) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative w-full max-w-lg bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-lg bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
         
         <div className="flex items-center justify-between p-6 border-b border-slate-800">
           <h3 className="text-2xl font-bold text-white">{project.title}</h3>
@@ -33,13 +33,13 @@ const ProjectModal = ({ project, isOpen, onClose, techIcons }) => {
         <div className="p-6 overflow-y-auto flex-grow">
           <div className="mb-8">
             <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">{t.projects.descLabel}</h4>
-            <p className="text-slate-300 leading-relaxed">{project.fullDesc}</p>
+            <p className="text-slate-300 leading-relaxed">{project.fullDesc || project.shortDesc}</p>
           </div>
 
           <div>
             <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">{t.projects.tech}</h4>
             <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => {
+              {(project.techStack || []).map((tech) => {
                 const TechIcon = techIcons?.[tech];
                 return (
                   <span key={tech} className="px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 text-slate-300 rounded-xl text-sm font-medium flex items-center gap-2">
