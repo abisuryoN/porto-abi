@@ -38,6 +38,13 @@ const Projects = () => {
         ['PHP', 'CodeIgniter 4', 'Bootstrap'],
         ['React JS', 'Laravel']
       ][index] || [],
+      demoUrl: [
+        'https://absensitaat.insomnia247.nl/',
+        'https://followcheck.insomnia247.nl/',
+        'https://rayaabadisaudara.com',
+        'https://koperasi-ras.netlify.app/',
+        'https://dualcode.vercel.app/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAaeboCQqHvkAX21fK5Cjvj9WJPdXhAIyKVMCkrk2VbizlkGOaQwrJCXg4EL60w_aem_HYEYiIUAwo-6mBRwcQ_wKA'
+      ][index]
     }));
   }, [t]);
 
@@ -71,14 +78,18 @@ const Projects = () => {
           >
             {localizedProjects.map((project, idx) => (
               <div key={project.id} className="min-w-full p-2">
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col h-full cursor-pointer hover:border-blue-500/50" onClick={() => setSelectedProject(project)}>
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col h-full cursor-pointer hover:border-blue-500/50 group/card">
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-mono text-blue-400">{String(idx + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}</span>
-                    <ExternalLink size={16} className="text-slate-500" />
+                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-blue-400 p-1" onClick={(e) => e.stopPropagation()}>
+                        <ExternalLink size={18} />
+                    </a>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-                  <p className="text-slate-400 text-sm mb-6 flex-grow">{project.shortDesc}</p>
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+                  <div className="flex-grow" onClick={() => setSelectedProject(project)}>
+                      <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+                      <p className="text-slate-400 text-sm mb-6">{project.shortDesc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-800" onClick={() => setSelectedProject(project)}>
                     {project.techStack.map((tech) => {
                       const TechIcon = techIcons[tech];
                       return (
