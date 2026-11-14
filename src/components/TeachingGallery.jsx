@@ -13,43 +13,58 @@ const teachingPhotos = [
 const TeachingGallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const touchStart = useRef(0);
+  const [direction, setDirection] = useState(0);
   const totalPhotos = teachingPhotos.length;
 
-  const handlePrev = useCallback(() => setCurrentIndex((prev) => (prev === 0 ? totalPhotos - 1 : prev - 1)), [totalPhotos]);
-  const handleNext = useCallback(() => setCurrentIndex((prev) => (prev === totalPhotos - 1 ? 0 : prev + 1)), [totalPhotos]);
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    setCurrentIndex((prev) => (prev + newDirection + totalPhotos) % totalPhotos);
+  };
 
   return (
     <section className="py-20 px-4 bg-slate-950 overflow-hidden">
       <div className="max-w-4xl mx-auto">
         <h3 className="text-3xl font-bold text-white mb-4 text-center">Dokumentasi Kegiatan Mengajar</h3>
         <p className="text-slate-400 text-center mb-12 px-4">Pengalaman saya mengajar Teknik Informatika di SMA Negeri 1 Tajurhalang.</p>
+        
         <div className="relative group px-0">
-          <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-slate-800/80 text-white shadow-lg cursor-pointer hover:bg-slate-700">
+          <button onClick={() => paginate(-1)} className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-slate-800/80 text-white shadow-lg cursor-pointer hover:bg-slate-700">
             <ChevronLeft size={20} />
           </button>
-          <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-slate-800/80 text-white shadow-lg cursor-pointer hover:bg-slate-700">
+          <button onClick={() => paginate(1)} className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-slate-800/80 text-white shadow-lg cursor-pointer hover:bg-slate-700">
             <ChevronRight size={20} />
           </button>
-          <div 
-            className="overflow-hidden rounded-2xl mx-auto w-full max-w-2xl"
-            onTouchStart={(e) => touchStart.current = e.touches[0].clientX}
-            onTouchEnd={(e) => {
-                const diff = touchStart.current - e.changedTouches[0].clientX;
-                if (diff > 50) handleNext();
-                else if (diff < -50) handlePrev();
-            }}
-          >
-             <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: "translateX(-" + (currentIndex * 100) + "%)" }}>
-                {teachingPhotos.map((photo, i) => (
-                    <div key={photo.id} className="min-w-full relative aspect-[4/3] bg-slate-900 cursor-pointer" onClick={() => setLightboxIndex(i)}>
-                        <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover" loading="lazy" />
-                    </div>
-                ))}
-             </div>
+
+          <div className="relative overflow-hidden rounded-2xl mx-auto w-full max-w-2xl aspect-[4/3] bg-slate-900 cursor-pointer">
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.img
+                key={currentIndex}
+                src={teachingPhotos[currentIndex].src}
+                custom={direction}
+                variants={{
+                  enter: (direction) => ({ x: direction > 0 ? 1000 : -1000, opacity: 0 }),
+                  center: { zIndex: 1, x: 0, opacity: 1 },
+                  exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0 })
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                className="absolute w-full h-full object-cover"
+                onClick={() => setLightboxIndex(currentIndex)}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(e, { offset, velocity }) => {
+                    if (offset.x > 100) paginate(-1);
+                    else if (offset.x < -100) paginate(1);
+                }}
+              />
+            </AnimatePresence>
           </div>
         </div>
       </div>
+      
       <AnimatePresence>
         {lightboxIndex !== null && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[1000] bg-black/95 flex flex-col items-center justify-center" onClick={() => setLightboxIndex(null)}>
