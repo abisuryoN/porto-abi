@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import TeachingGallery from './components/TeachingGallery';
 import ScrollEffectText from './components/ScrollEffectText';
 import Projects from './components/Projects';
 import { FaWhatsapp } from 'react-icons/fa';
@@ -15,6 +16,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <TeachingGallery />
         <ScrollEffectText />
         <Projects />
       </main>

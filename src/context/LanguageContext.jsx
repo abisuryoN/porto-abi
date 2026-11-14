@@ -9,10 +9,10 @@ const translations = {
     },
     hero: {
       hello: "Halo, Saya",
-      title: 'Backend Developer',
+      title: 'Backend Developer & IT Educator',
       viewProjects: 'Lihat Project',
       aboutMe: 'Tentang Saya',
-      bio: 'Saya adalah Backend Developer yang fokus pada pengembangan web. Saya memiliki passion besar dalam membangun arsitektur sistem yang scalable, aman, dan efisien untuk berbagai pengujian aplikasi.',
+      bio: 'Saya adalah mahasiswa Teknik Informatika yang berfokus pada Backend Development dan pengembangan aplikasi web menggunakan PHP, Laravel, React JS, dan MySQL.',
       followMe: 'Ikuti Saya'
     },
     about: {
@@ -23,7 +23,7 @@ const translations = {
       study: 'Teknik Informatika. IPK Saat ini:',
       highschool: 'SMAN 1 Tajurhalang',
       science: 'Jurusan Ilmu Pengetahuan Alam (IPA)',
-      summary: 'Terus belajar dan mengembangkan diri terhadap teknologi terbaru, termasuk pembuatan API, arsitektur database, dan implementasi frontend modern.'
+      summary: 'Saya adalah mahasiswa Teknik Informatika yang berfokus pada Backend Development dan pengembangan aplikasi web menggunakan PHP, Laravel, React JS, dan MySQL.'
     },
     projects: {
       title: 'Portofolio Proyek',
@@ -34,14 +34,24 @@ const translations = {
       descLabel: 'Deskripsi',
       items: [
         {
-          title: 'Company Profile Koperasi RAS',
-          shortDesc: 'Website profil perusahaan untuk Koperasi Raya Abadi Saudara untuk meningkatkan visibilitas digital.',
-          fullDesc: 'Platform company profile yang dirancang untuk memperkenalkan profil Koperasi Raya Abadi Saudara kepada publik secara profesional. Situs ini mencakup informasi tentang layanan, visi misi, sejarah perusahaan, serta galeri kegiatan.'
+          title: 'Sistem Informasi Absensi TAAT',
+          shortDesc: 'Aplikasi sistem informasi absensi sekolah untuk pengelolaan data kehadiran siswa secara digital.',
+          fullDesc: 'Aplikasi sistem informasi absensi sekolah yang dikembangkan untuk membantu pengelolaan data kehadiran siswa dan aktivitas administrasi sekolah secara digital. Sistem ini menyediakan pengelolaan data siswa, guru, kelas, serta pencatatan dan pemantauan kehadiran.'
+        },
+        {
+          title: 'FollowCheck – Instagram Follower Analyzer',
+          shortDesc: 'Aplikasi web untuk menganalisis hubungan followers dan following Instagram.',
+          fullDesc: 'Aplikasi web untuk menganalisis hubungan followers dan following Instagram berdasarkan data ekspor resmi Instagram. Membantu pengguna mengetahui akun yang tidak mengikuti kembali, akun yang saling mengikuti, serta melakukan analisis data followers dan following dengan lebih mudah.'
         },
         {
           title: 'Sistem Keuangan Koperasi RAS',
           shortDesc: 'Sistem manajemen keuangan untuk pencatatan simpan pinjam dan investasi koperasi.',
           fullDesc: 'Aplikasi manajemen keuangan terpadu yang menangani transaksi simpan pinjam dan investasi. Memiliki 3 tingkat akses: Superadmin (kontrol penuh), Staff (operasional), dan Investor (monitoring investasi).'
+        },
+        {
+          title: 'Company Profile Koperasi RAS',
+          shortDesc: 'Website profil perusahaan untuk Koperasi Raya Abadi Saudara untuk meningkatkan visibilitas digital.',
+          fullDesc: 'Platform company profile yang dirancang untuk memperkenalkan profil Koperasi Raya Abadi Saudara kepada publik secara profesional. Situs ini mencakup informasi tentang layanan, visi misi, sejarah perusahaan, serta galeri kegiatan.'
         },
         {
           title: 'DualCode - Layanan Jasa Joki',
@@ -53,7 +63,7 @@ const translations = {
     common: {
       chatWa: 'Chat di WhatsApp',
       rights: 'Hak cipta dilindungi.',
-      quote: '"Terus berkembang sebagai Backend Developer dengan membangun sistem yang efisien dan terstructured serta mengikuti perkembangan teknologi modern."'
+      quote: '"Terus berkembang sebagai Backend Developer & IT Educator dengan membangun sistem yang efisien dan terstructured serta mengikuti perkembangan teknologi modern."'
     }
   },
   en: {
@@ -64,10 +74,10 @@ const translations = {
     },
     hero: {
       hello: "Hello, I'm",
-      title: 'Backend Developer',
+      title: 'Backend Developer & IT Educator',
       viewProjects: 'View Projects',
       aboutMe: 'About Me',
-      bio: 'I am a Backend Developer focused on web development. I have a great passion for building scalable, secure, and efficient system architectures for various application testing scenarios.',
+      bio: 'I am an Informatics Engineering student focused on Backend Development and web application development using PHP, Laravel, React JS, and MySQL.',
       followMe: 'Follow Me'
     },
     about: {
@@ -78,7 +88,7 @@ const translations = {
       study: 'Informatics Engineering. Current GPA:',
       highschool: 'SMAN 1 Tajurhalang High School',
       science: 'Science Major (IPA)',
-      summary: 'Continuously learning and developing towards the latest technologies, including API creation, database architecture, and modern frontend implementation.'
+      summary: 'I am an Informatics Engineering student focused on Backend Development and web application development using PHP, Laravel, React JS, and MySQL.'
     },
     projects: {
       title: 'Project Portfolio',
@@ -89,14 +99,24 @@ const translations = {
       descLabel: 'Description',
       items: [
         {
-          title: 'Koperasi RAS Company Profile',
-          shortDesc: 'Company profile website for Koperasi Raya Abadi Saudara to increase digital visibility.',
-          fullDesc: 'A company profile platform designed to professionally introduce Koperasi Raya Abadi Saudara to the public. This site includes information about services, vision and mission, company history, and activity galleries.'
+          title: 'TAAT School Attendance Information System',
+          shortDesc: 'School attendance information system application for digital student attendance management.',
+          fullDesc: 'A school attendance information system application developed to help manage student attendance data and school administrative activities digitally. This system provides management of student, teacher, class data, and attendance monitoring.'
+        },
+        {
+          title: 'FollowCheck – Instagram Follower Analyzer',
+          shortDesc: 'Web application for analyzing Instagram followers and following relationships.',
+          fullDesc: 'A web application for analyzing Instagram followers and following relationships based on official Instagram export data. It helps users discover accounts that do not follow back, mutual accounts, and makes follower/following data analysis easier.'
         },
         {
           title: 'Koperasi RAS Financial System',
           shortDesc: 'Financial management system for cooperative savings, loans, and investments.',
-          fullDesc: 'An integrated financial management application handling savings, loans, and investment transactions. Features 3 access levels: Superadmin (full control), Staff (operational), and Investor (investment monitoring).'
+          fullDesc: 'An integrated financial management application handling savings, loans, and investment transactions. Features 3 access levels: Superadmin (full control), Staff (operational), and Investor (monitoring investments).'
+        },
+        {
+          title: 'Koperasi RAS Company Profile',
+          shortDesc: 'Company profile website for Koperasi Raya Abadi Saudara to increase digital visibility.',
+          fullDesc: 'A company profile platform designed to professionally introduce Koperasi Raya Abadi Saudara to the public. This site includes information about services, vision and mission, company history, and activity galleries.'
         },
         {
           title: 'DualCode - Professional Services',
@@ -108,7 +128,7 @@ const translations = {
     common: {
       chatWa: 'Chat on WhatsApp',
       rights: 'All rights reserved.',
-      quote: '"Continuously growing as a Backend Developer by building efficient and structured systems while following modern technology developments."'
+      quote: '"Continuously growing as a Backend Developer & IT Educator by building efficient and structured systems while following modern technology developments."'
     }
   }
 };

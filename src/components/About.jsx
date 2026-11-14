@@ -18,7 +18,6 @@ const About = () => {
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-900">
       <div className="w-[90%] xl:w-[85%] max-w-[1920px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
-          
           {/* Pendidikan (Education) */}
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-white mb-8 relative inline-block after:content-[''] after:block after:w-1/3 after:h-1 after:bg-blue-500 after:mt-2">
@@ -29,7 +28,7 @@ const About = () => {
                 <div className="absolute left-0 top-1 w-6 h-6 bg-slate-900 border-4 border-blue-500 rounded-full z-10"></div>
                 <h4 className="text-lg font-bold text-white">{t.about.uni}</h4>
                 <p className="text-blue-400 font-medium text-sm my-1">2023 - {t.about.now}</p>
-                <p className="text-slate-400 text-sm">{t.about.study} <span className="font-semibold text-white">3.29</span></p>
+                <p className="text-slate-400 text-sm">{t.about.study} <span className="font-semibold text-white">3.32</span></p>
               </li>
               <li className="relative pl-10">
                 <div className="absolute left-0 top-1 w-6 h-6 bg-slate-900 border-4 border-slate-600 rounded-full z-10"></div>
@@ -39,7 +38,7 @@ const About = () => {
               </li>
             </ul>
           </div>
-
+          
           {/* Kemampuan (Skills) */}
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-white mb-8 relative inline-block after:content-[''] after:block after:w-1/3 after:h-1 after:bg-blue-500 after:mt-2">
@@ -57,12 +56,11 @@ const About = () => {
               ))}
             </div>
             <div className="mt-8 p-6 bg-slate-900/50 border border-slate-800 rounded-2xl">
-               <p className="text-slate-400 text-sm leading-relaxed">
-                 {t.about.summary}
-               </p>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {t.about.summary}
+                </p>
             </div>
           </div>
-
         </div>
       </div>
     </section>
