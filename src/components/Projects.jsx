@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import ProjectModal from './ProjectModal';
 import { useLanguage } from '../context/LanguageContext';
 import { SiPhp, SiLaravel, SiCodeigniter, SiMysql, SiBootstrap, SiReact } from 'react-icons/si';
@@ -16,67 +16,73 @@ const techIcons = {
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
   const { t } = useLanguage();
+  const items = useMemo(() => t.projects.items, [t]);
+  const total = items.length;
+  
+  const [index, setIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionRef = useRef(false);
 
-  const localizedProjects = useMemo(() => {
-    return t.projects.items.map((item, index) => ({
-      ...item,
-      id: index + 1,
-      techStack: [['PHP', 'Laravel', 'MySQL'],['React JS', 'Vite', 'JavaScript'],['PHP', 'CodeIgniter 4', 'MySQL'],['PHP', 'CodeIgniter 4', 'Bootstrap'],['React JS', 'Laravel']][index] || [],
-      demoUrl: ['https://absensitaat.insomnia247.nl/','https://followcheck.insomnia247.nl/','https://rayaabadisaudara.com','https://koperasi-ras.netlify.app/','https://dualcode.vercel.app/'][index]
-    }));
-  }, [t]);
+  const slides = useMemo(() => [items[total - 1], ...items, items[0]], [items, total]);
 
   const paginate = (newDirection) => {
-    setDirection(newDirection);
-    setCurrentIndex((prev) => (prev + newDirection + localizedProjects.length) % localizedProjects.length);
+    if (transitionRef.current) return;
+    transitionRef.current = true;
+    setIsTransitioning(true);
+    setIndex(prev => prev + newDirection);
   };
 
+  const handleTransitionEnd = () => {
+    transitionRef.current = false;
+    setIsTransitioning(false);
+    if (index === 0) setIndex(total);
+    else if (index === total + 1) setIndex(1);
+  };
+
+  const currentDisplayIndex = ((index - 1 + total) % total) + 1;
+
   return (
-    <section id="projects" className="py-8 px-4">
-      <div className="max-w-md mx-auto relative">
+    <section id="projects" className="py-8 px-4 overflow-hidden">
+      <div className="max-w-md mx-auto">
         <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.projects.title}</h2>
-        <div className="relative flex items-center justify-center">
-          <button onClick={() => paginate(-1)} className="absolute left-0 z-30 p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700">
+        
+        <div className="relative w-full">
+          <button onClick={() => paginate(-1)} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700">
             <ChevronLeft size={24} />
           </button>
-          
-          <div className="w-full h-[450px] overflow-hidden relative">
-            <AnimatePresence initial={false} custom={direction}>
-                <motion.div
-                    key={currentIndex}
-                    custom={direction}
-                    variants={{
-                        enter: (direction) => ({ x: direction > 0 ? "100%" : "-100%", opacity: 0 }),
-                        center: { x: 0, opacity: 1 },
-                        exit: (direction) => ({ x: direction < 0 ? "100%" : "-100%", opacity: 0 })
-                    }}
-                    initial="enter" animate="center" exit="exit"
-                    transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
-                    className="absolute w-full"
-                >
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col h-[400px]" onClick={() => setSelectedProject(localizedProjects[currentIndex])}>
-                      <div className="flex justify-between items-start mb-6">
-                        <span className="text-xs font-mono text-blue-400">{String(currentIndex + 1).padStart(2, '0')} / {String(localizedProjects.length).padStart(2, '0')}</span>
-                        <a href={localizedProjects[currentIndex].demoUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-blue-400" onClick={(e) => e.stopPropagation()}><ExternalLink size={20} /></a>
-                      </div>
-                      <h3 className="text-xl font-semibold text-white mb-4">{localizedProjects[currentIndex].title}</h3>
-                      <p className="text-slate-400 text-sm mb-auto line-clamp-4">{localizedProjects[currentIndex].shortDesc}</p>
-                      <div className="flex flex-wrap gap-2 pt-6 border-t border-slate-800">
-                        {localizedProjects[currentIndex].techStack.map(tech => (
-                          <span key={tech} className="text-[10px] px-2 py-1 bg-slate-800 text-slate-300 rounded-md border border-slate-700/50">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <button onClick={() => paginate(1)} className="absolute right-0 z-30 p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700">
+          <button onClick={() => paginate(1)} className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700">
             <ChevronRight size={24} />
           </button>
+
+          <div className="w-full overflow-hidden">
+            <motion.div 
+                className="flex flex-row flex-nowrap items-stretch"
+                animate={{ x: `-${index * 100}%` }}
+                transition={isTransitioning ? { type: "tween", ease: "easeInOut", duration: 0.3 } : { duration: 0 }}
+                onAnimationComplete={handleTransitionEnd}
+            >
+              {slides.map((project, i) => (
+                <div key={i} className="basis-full shrink-0 grow-0 min-w-0 px-4">
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col gap-3 h-[320px] cursor-pointer hover:border-blue-500/50" onClick={() => setSelectedProject(project)}>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-mono text-blue-400">{String(currentDisplayIndex).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+                        <a href={['https://absensitaat.insomnia247.nl/','https://followcheck.insomnia247.nl/','https://rayaabadisaudara.com','https://koperasi-ras.netlify.app/','https://dualcode.vercel.app/'][i === 0 ? total-1 : i === total+1 ? 0 : i-1]} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-blue-400" onClick={(e) => e.stopPropagation()}><ExternalLink size={18} /></a>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                      <p className="text-slate-400 text-sm line-clamp-4">{project.shortDesc}</p>
+                      <div className="mt-auto pt-4 border-t border-slate-800">
+                        <div className="flex flex-wrap gap-2">
+                            {[['PHP', 'Laravel', 'MySQL'],['React JS', 'Vite', 'JavaScript'],['PHP', 'CodeIgniter 4', 'MySQL'],['PHP', 'CodeIgniter 4', 'Bootstrap'],['React JS', 'Laravel']][i === 0 ? total-1 : i === total+1 ? 0 : i-1].map(tech => (
+                              <span key={tech} className="text-[10px] px-2 py-1 bg-slate-800 text-slate-300 rounded-md border border-slate-700/50">{tech}</span>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
       {selectedProject && <ProjectModal project={selectedProject} isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} techIcons={techIcons} />}
